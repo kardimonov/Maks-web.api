@@ -11,14 +11,14 @@ namespace GolovinskyAPI.Logic.Handlers
 {
     public class UploadPictureHandler : IUploadPicture
     {
-        private readonly IHostEnvironment _env;
+        //private readonly IHostEnvironment _env;
 
-        public UploadPictureHandler(IHostEnvironment env)
-        {
-            _env = env;
-        }
+        //public UploadPictureHandler(IHostEnvironment env)
+        //{
+        //    _env = env;
+        //}
 
-        public string GetBase64Image(byte[] byteImage) //ConvertByteArrayToString
+        public string GetBase64Image(byte[] byteImage) 
         {
             var image = Convert.ToBase64String(byteImage);
             return image;

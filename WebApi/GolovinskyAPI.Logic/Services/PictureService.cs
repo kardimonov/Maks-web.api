@@ -55,12 +55,6 @@ namespace GolovinskyAPI.Logic.Services
                             fileBytes = ms.ToArray();
                         }
                         var result = mapper.Map<NewUploadImageInputByte>(input, opt => opt.Items["Img"] = fileBytes);
-                        //var result = new NewUploadImageInputByte
-                        //{
-                        //    AppCode = input.AppCode,
-                        //    TImageprev = input.TImageprev,
-                        //    Img = fileBytes
-                        //};
                         
                         Console.WriteLine("Image compressing done/ elapsed " + (DateTime.Now - ts).TotalMilliseconds);
                         ts = DateTime.Now;
@@ -78,12 +72,6 @@ namespace GolovinskyAPI.Logic.Services
                             fileBytes = ms.ToArray();
                         }
                         var result = mapper.Map<NewUploadImageInputByte>(input, opt => opt.Items["Img"] = fileBytes);
-                        //var result = new NewUploadImageInputByte
-                        //{
-                        //    AppCode = input.AppCode,
-                        //    TImageprev = input.TImageprev,
-                        //    Img = fileBytes
-                        //};
                         
                         var resObj = repo.UploadPicture(result);                        
                         return (resObj == "1");
@@ -109,12 +97,6 @@ namespace GolovinskyAPI.Logic.Services
                             fileBytes = ms.ToArray();
                         }
                         var result = mapper.Map<NewUploadImageInputByte>(input, opt => opt.Items["Img"] = fileBytes);
-                        //var result = new NewUploadImageInputByte
-                        //{
-                        //    AppCode = input.AppCode,
-                        //    TImageprev = input.TImageprev,
-                        //    Img = fileBytes
-                        //};
                         
                         var resObj = repo.UploadPicture(result);                       
                         return (resObj == "1");
@@ -128,12 +110,6 @@ namespace GolovinskyAPI.Logic.Services
                             fileBytes = ms.ToArray();
                         }
                         var result = mapper.Map<NewUploadImageInputByte>(input, opt => opt.Items["Img"] = fileBytes);
-                        //var result = new NewUploadImageInputByte
-                        //{
-                        //    AppCode = input.AppCode,
-                        //    TImageprev = input.TImageprev,
-                        //    Img = fileBytes
-                        //};
                         
                         var resObj = repo.UploadPicture(result);                        
                         return (resObj == "1");
@@ -148,12 +124,6 @@ namespace GolovinskyAPI.Logic.Services
                         fileBytes = ms.ToArray();
                     }
                     var result = mapper.Map<NewUploadImageInputByte>(input, opt => opt.Items["Img"] = fileBytes);
-                    //var result = new NewUploadImageInputByte
-                    //{
-                    //    AppCode = input.AppCode,
-                    //    TImageprev = input.TImageprev,
-                    //    Img = fileBytes
-                    //};
                     
                     var resObj = repo.UploadPicture(result);                    
                     return (resObj == "1");

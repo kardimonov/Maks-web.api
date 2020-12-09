@@ -1,4 +1,4 @@
-﻿namespace GolovinskyAPI.Data.Models
+﻿namespace GolovinskyAPI.Data.Models.Load
 {
     public class GuestCastIDModel
     {

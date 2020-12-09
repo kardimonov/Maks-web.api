@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Data.Models.ShopInfo;
-using GolovinskyAPI.Data.Models;
 using GolovinskyAPI.Data.Models.Orders;
 using GolovinskyAPI.Data.Models.CustomerInfo;
 using GolovinskyAPI.Data.Models.Notification;
@@ -9,18 +8,12 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using GolovinskyAPI.Data.Models.Password;
 
 namespace GolovinskyAPI.Data.Repositories
 {
     public class Repository : IRepository
-    {
-        //public Encoder myEncoder;
-        //public EncoderParameter myEncoderParameter;
-        //public EncoderParameters myEncoderParameters;
-        //public float biggestside;
-        //public float prop;
-        //public int needside;
-
+    {        
         public ShopInfo GetSubDomain(string url)
         {
             ShopInfo result;                        
@@ -36,8 +29,11 @@ namespace GolovinskyAPI.Data.Repositories
         {
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
-                var answer = db.Query<PasswordRecoveryResponse>("sp_RecoveryPassword", 
-                    new { Phone = input.Phone, Cust_ID_Main = input.Cust_ID_Main },
+                var answer = db.Query<PasswordRecoveryResponse>("sp_RecoveryPassword", new
+                { 
+                    Phone = input.Phone, 
+                    Cust_ID_Main = input.Cust_ID_Main
+                },
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
 
                 var res = new string[] { answer.Response, answer.Password, answer.SiteTxt };
@@ -48,7 +44,7 @@ namespace GolovinskyAPI.Data.Repositories
         public CustomerInfoPromoOutputModel CustomerInfoPromo(int? cust_id)
         {
             CustomerInfoPromoOutputModel result;
-            using (SqlConnection db = new SqlConnection(Global.Connection))
+            using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 result = db.Query<CustomerInfoPromoOutputModel>("sp_GetCustomerInfoPromo", 
                     new { Cust_ID = cust_id }, 
@@ -82,8 +78,8 @@ namespace GolovinskyAPI.Data.Repositories
             string res;
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
-                res = await db.QueryFirstOrDefaultAsync<string>("sp_RequestGoodsMark", 
-                    new {
+                res = await db.QueryFirstOrDefaultAsync<string>("sp_RequestGoodsMark", new
+                {
                     AppCode = model.AppCode,
                     CID = model.CID,
                     ID = model.ID,

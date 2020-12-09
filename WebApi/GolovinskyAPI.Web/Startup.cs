@@ -31,15 +31,20 @@ namespace GolovinskyAPI.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
-            
+            services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
+            {
+                builder.WithOrigins(Configuration.GetSection("CorsOrigins").Get<string[]>())
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                        //.AllowAnyOrigin();
+            }));
+
             Global.Connection = Configuration.GetConnectionString("DefaultConnection");
 
-            //services.AddTransient<IAuthHandler, AuthHandler>();
-            services.AddAutoMapper(typeof(AdminProfile), typeof(CatalogProfile), typeof(PictureProfile));
+            services.AddAutoMapper(typeof(AdminProfile), typeof(CatalogProfile), typeof(PictureProfile), typeof(BackgroundProfile));
             services.AddOptions();
             services.AddMvc();
-            services.AddControllers().AddNewtonsoftJson();  
+            services.AddControllers().AddNewtonsoftJson(); 
 
             services.Configure<AuthServiceModel>(Configuration.GetSection("AuthService"));
             var result = Configuration.GetSection("AuthService").GetChildren();
@@ -95,15 +100,8 @@ namespace GolovinskyAPI.Web
             app.UseDefaultFiles();
             app.UseStaticFiles();            
             app.UseRouting();
-
-            app.UseCors(options => options
-                .AllowAnyOrigin()
-                //.WithOrigins(Configuration.GetSection("CorsOrigins").Get<string[]>())
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                //.AllowCredentials()
-                );
-
+            app.UseCors("ApiCorsPolicy");
+            app.UseAuthorization();
             app.UseAuthentication();
             app.UseSwagger();
 

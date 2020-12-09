@@ -106,7 +106,7 @@ namespace GolovinskyAPI.Data.Repositories
         //поиск товара 
         public List<SearchPictureOutputModel> SearchProduct(SearchPictureInputModel input)
         {
-            var response = new List<SearchPictureOutputModel>();
+            List<SearchPictureOutputModel> response = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 response = db.Query<SearchPictureOutputModel>("sp_SearchPicture", 

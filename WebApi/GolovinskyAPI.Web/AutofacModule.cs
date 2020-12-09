@@ -22,6 +22,8 @@ namespace GolovinskyAPI.Web
 
             builder.RegisterType<AuthHandler>()
                 .As<IAuthHandler>();
+            builder.RegisterType<UploadPictureHandler>()
+                .As<IUploadPicture>();
         }
     }
 }

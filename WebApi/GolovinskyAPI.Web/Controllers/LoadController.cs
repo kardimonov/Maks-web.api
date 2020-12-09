@@ -1,16 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
-using GolovinskyAPI.Data.Models.Mobile;
 using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Data.Models.Categories;
+using GolovinskyAPI.Data.Models.Load;
 using GolovinskyAPI.Logic.Infrastructure;
 
 namespace GolovinskyAPI.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/Load")]
-    [EnableCors]
-    //[ApiController]
+    [ApiController]
     public class LoadController : ControllerBase
     {
         private readonly ILoadRepository repo;
@@ -61,7 +59,7 @@ namespace GolovinskyAPI.Web.Controllers
                 return BadRequest();
             }                
 
-            var catRecursion = new CategoryRecursion();
+            CategoryRecursion catRecursion = new();
             var outputCategories = repo.GetCategoryItems(model);   
             
             return Ok(catRecursion.GenerateCategories(outputCategories));

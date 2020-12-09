@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Data.Models.Products;
 using GolovinskyAPI.Data.Models;
@@ -13,8 +12,7 @@ namespace GolovinskyAPI.Web.Controllers
     /// </summary>
     [Produces("application/json")]
     [Route("api/Product")]
-    [EnableCors]
-    //[ApiController]
+    [ApiController]
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository repo;

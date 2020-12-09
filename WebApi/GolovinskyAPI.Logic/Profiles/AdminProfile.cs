@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using GolovinskyAPI.Data.Models.Admin;
 using GolovinskyAPI.Data.Models.Authorization;
-using GolovinskyAPI.Data.Models;
 using GolovinskyAPI.Logic.Models.Admin;
 
 namespace GolovinskyAPI.Logic.Profiles

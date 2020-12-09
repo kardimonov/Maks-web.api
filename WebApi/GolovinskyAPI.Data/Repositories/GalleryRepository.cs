@@ -12,7 +12,7 @@ namespace GolovinskyAPI.Data.Repositories
     {
         public List<SearchPictureOutputModel> SearchPicture(SearchPictureInputModel input)
         {
-            var res = new List<SearchPictureOutputModel>();
+            List<SearchPictureOutputModel> res = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 // new { SearchDescr = input.SearchDescr, Cust_ID = input.Cust_ID, ID = input.ID }
@@ -24,7 +24,7 @@ namespace GolovinskyAPI.Data.Repositories
 
         public List<SearchPictureOutputModel> SearchAllPictures(SearchAllPictureInputModel input)
         {
-            var res = new List<SearchPictureOutputModel>();
+            List<SearchPictureOutputModel> res = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 res = db.Query<SearchPictureOutputModel>("sp_SearchPicture", input,

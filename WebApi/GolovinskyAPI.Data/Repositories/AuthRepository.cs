@@ -16,7 +16,7 @@ namespace GolovinskyAPI.Data.Repositories
             var res = 0;
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
-                var p = new DynamicParameters();
+                DynamicParameters p = new();
                 p.Add("@UserName", input.UserName);
                 p.Add("@Password", input.Password);
                 p.Add("@Cust_ID_Main", input.Cust_ID_Main);
@@ -30,7 +30,7 @@ namespace GolovinskyAPI.Data.Repositories
 
         public CustomerInfoOutput GetCustomerFIO(int CustID)
         {
-            var res = new CustomerInfoOutput();
+            CustomerInfoOutput res = new();
             using (SqlConnection db = new SqlConnection(Global.Connection))
             {
                 res = db.Query<CustomerInfoOutput>("sp_GetCustomerInfo", new { Cust_ID = CustID }, 
@@ -41,10 +41,10 @@ namespace GolovinskyAPI.Data.Repositories
 
         public RegisterOutputModel AddWebCustomerCompany(RegisterInputModel input)
         {
-            var res = new RegisterOutputModel();
+            RegisterOutputModel res = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
-                var p = new DynamicParameters();
+                DynamicParameters p = new();
                 p.Add("@password", input.password);
                 p.Add("@Street", input.Address);
                 p.Add("@Phone1", input.Phone1);
@@ -78,7 +78,7 @@ namespace GolovinskyAPI.Data.Repositories
             var res = new UpdateUserOutputModel();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
-                var p = new DynamicParameters();
+                DynamicParameters p = new();
                 p.Add("@password", model.Password);
                 p.Add("@Phone1", model.Phone);
                 p.Add("@whatsapp", model.WhatsApp);

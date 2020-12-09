@@ -2,7 +2,7 @@ using Dapper;
 using GolovinskyAPI.Data.Models;
 using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Data.Models.Categories;
-using GolovinskyAPI.Data.Models.Mobile;
+using GolovinskyAPI.Data.Models.Load;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Data;
@@ -27,7 +27,7 @@ namespace GolovinskyAPI.Data.Repositories
 
         public List<SearchAvitoPictureOutput> SearchAvitoPicture(SearchAvitoPictureInput input)
         {
-            var res = new List<SearchAvitoPictureOutput>();
+            List<SearchAvitoPictureOutput> res = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 res = db.Query<SearchAvitoPictureOutput>("sp_SearchAvitoPicture",
@@ -44,7 +44,7 @@ namespace GolovinskyAPI.Data.Repositories
         // get all menu items
         public List<SearchAvitoPictureOutput> GetCategoryItems(CategoriesInput input)
         {
-            var categoryList = new List<SearchAvitoPictureOutput>();
+            List<SearchAvitoPictureOutput> categoryList = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 categoryList = db.Query<SearchAvitoPictureOutput>("sp_SearchAvitoPictureAll",
@@ -55,7 +55,7 @@ namespace GolovinskyAPI.Data.Repositories
 
         public List<OutMobileDbModel> GetMobileDB(GetMobileDbModel input)
         {
-            var res = new List<OutMobileDbModel>();
+            List<OutMobileDbModel> res = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 res = db.Query<OutMobileDbModel>("sp_GetMobileDB", new

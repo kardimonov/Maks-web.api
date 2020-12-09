@@ -14,7 +14,7 @@ namespace GolovinskyAPI.Web.Controllers
     /// <returns></returns>
     //[Produces("application/json")]
     [Route("api/Background")]
-
+    [ApiController]
     public class BackgroundController : Controller
     {
         private readonly IBackgroundService _service;
