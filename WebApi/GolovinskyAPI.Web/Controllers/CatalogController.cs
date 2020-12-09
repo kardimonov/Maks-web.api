@@ -1,18 +1,16 @@
-﻿using System;
-using Microsoft.AspNetCore.Cors;
+﻿using AutoMapper;
+using GolovinskyAPI.Data.Interfaces;
+using GolovinskyAPI.Data.Models.Catalog;
+using GolovinskyAPI.Logic.Models.Catalog;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using GolovinskyAPI.Data.Models.Catalog;
-using GolovinskyAPI.Data.Interfaces;
-using AutoMapper;
-using GolovinskyAPI.Logic.Models.Catalog;
 
 namespace GolovinskyAPI.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/Catalog")]
-    [EnableCors]
     [ApiController]
     public class CatalogController : ControllerBase
     {

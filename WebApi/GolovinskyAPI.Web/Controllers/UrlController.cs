@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
 using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Logic.Interfaces;
 
@@ -7,8 +6,7 @@ namespace GolovinskyAPI.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/shopinfo")]
-    [EnableCors]
-    //[ApiController]
+    [ApiController]
     public class UrlController : ControllerBase
     {
         private readonly IRepository repo;
@@ -42,13 +40,17 @@ namespace GolovinskyAPI.Web.Controllers
             res.MainPicture = $"/mainimages/{mainImage}";
             res.MainPictureAccountUser = $"/accountImages/{accountMainImage}";
 
-            return Ok(new { 
-                cust_id = res.cust_id, 
+            return Ok(new {
+                cust_id = res.Cust_id, 
                 mainImage = res.MainPicture,
                 mainPictureAccountUser = res.MainPictureAccountUser,
-                email = res.e_mail,
                 dz = res.DZ,
-                phone = res.phone
+                email = res.E_mail,                
+                phone = res.Phone,
+                shortDescr = res.ShortDescr,
+                addr = res.Addr,
+                welcome = res.Welcome,
+                manual = res.Manual
             });
         }
     }

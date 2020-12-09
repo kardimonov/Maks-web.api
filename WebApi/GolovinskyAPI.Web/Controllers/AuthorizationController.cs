@@ -2,7 +2,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -21,7 +20,6 @@ namespace GolovinskyAPI.Controllers
     /// <returns></returns>
     [Produces("application/json")]
     [Route("api/Authorization")]
-    [EnableCors]
     [ApiController]
     public class AuthorizationController : ControllerBase
     {
@@ -75,11 +73,12 @@ namespace GolovinskyAPI.Controllers
             
             var jwt = new JwtSecurityToken(
                 issuer: _options.Value.Issuer,
-                audience: GetAUDIENCE(),
+                audience: Request.GetDisplayUrl(),
                 notBefore: now,
                 claims: identity.Claims,
                 expires: now.AddMonths(1),
-                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(_options), SecurityAlgorithms.HmacSha256));
+                signingCredentials: new SigningCredentials(
+                    AuthOptions.GetSymmetricSecurityKey(_options), SecurityAlgorithms.HmacSha256));
             
             var endcodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
             var response = new LoginSuccessModel
@@ -100,14 +99,7 @@ namespace GolovinskyAPI.Controllers
 
             return Ok(response);
         }
-        
-        [NonAction]
-        public string GetAUDIENCE()
-        {
-            var f = Request.GetDisplayUrl();
-            return f;
-        }
-
+                
         // PUT: api/Authorization
         /// <summary>
         /// Регистрация

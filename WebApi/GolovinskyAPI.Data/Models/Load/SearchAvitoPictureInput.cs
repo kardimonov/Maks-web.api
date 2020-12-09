@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace GolovinskyAPI.Data.Models.Categories
+namespace GolovinskyAPI.Data.Models.Load
 {
     public class SearchAvitoPictureInput
     {

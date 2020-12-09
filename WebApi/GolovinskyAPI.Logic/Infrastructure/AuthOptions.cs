@@ -26,4 +26,4 @@ namespace GolovinskyAPI.Logic.Infrastructure
             return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(options.Value.Key));
         }
     }
-}/*http://golowinskiy.bostil.ru*/
+}

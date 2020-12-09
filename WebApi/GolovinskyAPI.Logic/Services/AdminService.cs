@@ -1,5 +1,6 @@
 ﻿using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Data.Models;
+using GolovinskyAPI.Data.Models.Admin;
 using GolovinskyAPI.Data.Models.Authorization;
 using GolovinskyAPI.Logic.Infrastructure;
 using GolovinskyAPI.Logic.Interfaces;
@@ -27,29 +28,26 @@ namespace GolovinskyAPI.Logic.Services
             _options = options;
         }
 
-        // после обновления до 5.0 метод ниже включить
+        public LoginAdminOutputModel CheckWebPasswordAdmin(LoginModel loginModel, string userName, string audience)
+        {
+            var admin = repo.CheckWebPasswordAdmin(loginModel);
 
-        //public LoginAdminOutputModel CheckWebPasswordAdmin(LoginModel loginModel, string userName)
-        //{
-        //    var admin = repo.CheckWebPasswordAdmin(loginModel);
+            var now = DateTime.UtcNow;
+            var identity = _authHandler.GetIdentity(userName, admin.Cust_ID, admin.Role);
+            
+            var jwt = new JwtSecurityToken(
+             issuer: _options.Value.Issuer,
+             audience: audience,
+             notBefore: now,
+             claims: identity.Claims,
+             expires: now.AddMonths(1),
+             signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(_options), SecurityAlgorithms.HmacSha256));
 
-        //    var now = DateTime.UtcNow;
-        //    var identity = _authHandler.GetIdentity(userName, admin.Cust_ID, admin.Role);
-        //    var audience = Request.GetDisplayUrl();
+            var endcodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            admin.accessToken = endcodedJwt;
 
-        //    var jwt = new JwtSecurityToken(
-        //     issuer: _options.Value.Issuer,
-        //     audience: audience,
-        //     notBefore: now,
-        //     claims: identity.Claims,
-        //     expires: now.AddMonths(1),
-        //     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(_options), SecurityAlgorithms.HmacSha256));
-
-        //    var endcodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-        //    admin.accessToken = endcodedJwt;
-
-        //    return admin;
-        //}
+            return admin;
+        }
 
         public GalleryViewModel SearchAllAdminPictures(AdminPictureInfo dto, int itemsPerPage, int currentPage)
         {

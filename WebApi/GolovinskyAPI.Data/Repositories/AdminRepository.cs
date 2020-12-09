@@ -2,6 +2,7 @@
 using GolovinskyAPI.Data.Models.Authorization;
 using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Data.Models;
+using GolovinskyAPI.Data.Models.Admin;
 using GolovinskyAPI.Data.Models.CustomerInfo;
 using GolovinskyAPI.Data.Models.Images;
 using Microsoft.Data.SqlClient;
@@ -38,8 +39,11 @@ namespace GolovinskyAPI.Data.Repositories
             LoginAdminOutputModel res;
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
-                var response = db.Query<LoginAdminOutputModel>("sp_CheckWebPasswordAdmin",
-                    new { UserName = input.UserName, Password = input.Password },
+                var response = db.Query<LoginAdminOutputModel>("sp_CheckWebPasswordAdmin", new 
+                { 
+                    UserName = input.UserName, 
+                    Password = input.Password 
+                },
                     commandType: CommandType.StoredProcedure).First();
                 res = response;
             }
@@ -66,7 +70,7 @@ namespace GolovinskyAPI.Data.Repositories
 
         public SearchPictureInfoOutputModel SearchPictureInfo(SearchPictureInfoInputModel input)
         {
-            var res = new SearchPictureInfoOutputModel();
+            SearchPictureInfoOutputModel res = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 res = db.Query<SearchPictureInfoOutputModel>("sp_SearchPictureInfo",
@@ -89,7 +93,7 @@ namespace GolovinskyAPI.Data.Repositories
 
         private List<Picture> GetAllAdditionalPictures(SearchPictureInfoInputModel input)
         {
-            var list = new List<Picture>();
+            List<Picture> list = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 list = db.Query<Picture>("sp_SearchGetAvitoAddImage",
@@ -105,7 +109,7 @@ namespace GolovinskyAPI.Data.Repositories
 
         public List<SearchPictureOutputModel> SearchProduct(SearchPictureInputModel input)
         {
-            var response = new List<SearchPictureOutputModel>();
+            List<SearchPictureOutputModel> response = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 response = db.Query<SearchPictureOutputModel>("sp_SearchPicture",
@@ -120,7 +124,7 @@ namespace GolovinskyAPI.Data.Repositories
 
         public List<SearchPictureOutputModel> SearchAllAdminPictures(AdminPictureInfo input)
         {
-            var res = new List<SearchPictureOutputModel>();
+            List<SearchPictureOutputModel> res = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 res = db.Query<SearchPictureOutputModel>("sp_SearchPicture", input,

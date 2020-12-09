@@ -10,12 +10,12 @@ namespace GolovinskyAPI.Logic.Services
     public class BackgroundService : IBackgroundService
     {
         private readonly IBackgroundRepository _repo;
-        private readonly IUploadPicture _uploadHandler;
+        //private readonly IUploadPicture _uploadHandler;
 
-        public BackgroundService(IBackgroundRepository repo, IUploadPicture uploadHandler)
+        public BackgroundService(IBackgroundRepository repo) //, IUploadPicture uploadHandler)
         {
             _repo = repo;
-            _uploadHandler = uploadHandler;
+            //_uploadHandler = uploadHandler;
         }
 
         public async Task<List<Background>> GetBackgroundAsync(Background background)

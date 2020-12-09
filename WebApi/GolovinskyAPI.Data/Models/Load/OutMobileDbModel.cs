@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GolovinskyAPI.Data.Models.Mobile
+namespace GolovinskyAPI.Data.Models.Load
 {
     public class OutMobileDbModel
     {

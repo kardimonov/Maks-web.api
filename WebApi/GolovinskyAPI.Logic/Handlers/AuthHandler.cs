@@ -14,7 +14,7 @@ namespace GolovinskyAPI.Logic.Handlers
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, role),
                     new Claim("user_id", userId.ToString())
                 };
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(
+            ClaimsIdentity claimsIdentity = new(
                 claims,
                 "Token",
                 ClaimsIdentity.DefaultNameClaimType,

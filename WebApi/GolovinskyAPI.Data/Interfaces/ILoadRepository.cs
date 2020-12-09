@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using GolovinskyAPI.Data.Models.Categories;
-using GolovinskyAPI.Data.Models.Mobile;
+using GolovinskyAPI.Data.Models.Load;
 
 namespace GolovinskyAPI.Data.Interfaces
 {

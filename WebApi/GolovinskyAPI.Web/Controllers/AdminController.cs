@@ -1,17 +1,11 @@
 ﻿using AutoMapper;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using GolovinskyAPI.Data.Models.Authorization;
 using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Data.Models;
-using GolovinskyAPI.Logic.Infrastructure;
+using GolovinskyAPI.Data.Models.Admin;
+using GolovinskyAPI.Data.Models.Authorization;
 using GolovinskyAPI.Logic.Interfaces;
-using GolovinskyAPI.Logic.Models;
 using GolovinskyAPI.Logic.Models.Admin;
 
 namespace GolovinskyAPI.Web.Controllers
@@ -21,29 +15,22 @@ namespace GolovinskyAPI.Web.Controllers
     /// </summary>
     /// <returns></returns>
     [Produces("application/json")]
-    [EnableCors]
     [ApiController]
     //[Route("api/Admin")]
     public class AdminController : ControllerBase
     {
-        private readonly IAuthHandler _authHandler;
         private readonly IAdminRepository repo;
         private readonly IAdminService service;
-        private readonly IOptions<AuthServiceModel> _options;
         private readonly IMapper mapper;
 
         public AdminController(
-            IAuthHandler authHandler,
             IAdminRepository repository,
             IAdminService serv,
-            IOptions<AuthServiceModel> options,
             IMapper map
             )
         {
-            _authHandler = authHandler;
             repo = repository;
             service = serv;
-            _options = options;
             mapper = map;
         }
 
@@ -71,26 +58,8 @@ namespace GolovinskyAPI.Web.Controllers
             }
 
             var loginModel = mapper.Map<LoginModel>(model);
-            // var admin = service.CheckWebPasswordAdmin(loginModel, model.UserName);
-
-            // после обновления до 5.0 метод выше включить, а код ниже удалить
-            var admin = repo.CheckWebPasswordAdmin(loginModel);
-
-            var now = DateTime.UtcNow;
-            var identity = _authHandler.GetIdentity(model.UserName , admin.Cust_ID, admin.Role);
             var audience = Request.GetDisplayUrl();
-
-            var jwt = new JwtSecurityToken(
-             issuer: _options.Value.Issuer,
-             audience: audience,
-             notBefore: now,
-             claims: identity.Claims,
-             expires: now.AddMonths(1),
-             signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(_options), SecurityAlgorithms.HmacSha256));
-
-            var endcodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-            admin.accessToken = endcodedJwt;
-            // после обновления до 5.0 код выше удалить
+            var admin = service.CheckWebPasswordAdmin(loginModel, model.UserName, audience);
 
             return Ok(admin);
         }

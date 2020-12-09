@@ -3,7 +3,6 @@ using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Data.Models;
 using GolovinskyAPI.Data.Models.Images;
 using GolovinskyAPI.Logic.Interfaces;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GolovinskyAPI.Web.Controllers
@@ -15,8 +14,7 @@ namespace GolovinskyAPI.Web.Controllers
     //[Produces("application/json")]
     [Route("api/Img")]
     [DisableRequestSizeLimit]
-    [EnableCors]
-    //[ApiController]
+    [ApiController]
     public class ImgController : ControllerBase
     {
         private readonly IPictureRepository repo;

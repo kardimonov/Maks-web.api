@@ -1,4 +1,4 @@
-﻿namespace GolovinskyAPI.Data.Models
+﻿namespace GolovinskyAPI.Data.Models.Admin
 {
     public class ChangeStatusViewModel
     {

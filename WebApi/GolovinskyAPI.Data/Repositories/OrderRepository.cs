@@ -11,12 +11,10 @@ namespace GolovinskyAPI.Data.Repositories
     {
         public NewOrderOutputModel AddNewOrder(NewOrderInputModel input)
         {
-            var result = new NewOrderOutputModel();
-            //dynamic count_id;
-
+            NewOrderOutputModel result = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
-                var p = new DynamicParameters();
+                DynamicParameters p = new();
                 p.Add("@Cust_ID", input.Cust_ID);
                 p.Add("@Cur_Code", input.Cur_Code);
                 p.Add("@Ord_ID", dbType: DbType.Int32, direction: ParameterDirection.Output, size: 10);

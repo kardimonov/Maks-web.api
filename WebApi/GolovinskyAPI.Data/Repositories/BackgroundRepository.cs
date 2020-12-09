@@ -14,7 +14,6 @@ namespace GolovinskyAPI.Data.Repositories
         public async Task<string> CreateAsync(Background background)
         {
             var res = "";
-
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 var response = await db.QueryAsync<string>("sp_SetUpdateBkgImageMobile", new

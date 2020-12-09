@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Data.Models.Notification;
@@ -8,8 +7,7 @@ namespace GolovinskyAPI.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/Notification")]
-    [EnableCors]
-    //[ApiController]
+    [ApiController]
     public class NotificationController : ControllerBase
     {
         private readonly IRepository repo;

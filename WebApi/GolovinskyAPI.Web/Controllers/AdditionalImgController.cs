@@ -1,7 +1,6 @@
 ﻿using System;
 using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Data.Models.Images;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GolovinskyAPI.Web.Controllers
@@ -12,7 +11,6 @@ namespace GolovinskyAPI.Web.Controllers
     /// <returns></returns>
     [Produces("application/json")]
     [Route("api/AdditionalImg")]
-    [EnableCors]
     [ApiController]
     public class AdditionalImgController : ControllerBase
     {

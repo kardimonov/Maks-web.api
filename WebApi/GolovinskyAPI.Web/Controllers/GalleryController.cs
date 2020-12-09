@@ -1,13 +1,11 @@
 ﻿using GolovinskyAPI.Data.Models;
 using GolovinskyAPI.Logic.Interfaces;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GolovinskyAPI.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api")]
-    [EnableCors]
     [ApiController]
     public class GalleryController : ControllerBase
     {

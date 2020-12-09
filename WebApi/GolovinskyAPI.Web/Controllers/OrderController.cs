@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
 using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Data.Models.Orders;
 
@@ -11,8 +10,7 @@ namespace GolovinskyAPI.Web.Controllers
     /// <returns></returns>
     [Produces("application/json")]
     [Route("api/order")]
-    [EnableCors]
-    //[ApiController]
+    [ApiController]
     public class OrderController : ControllerBase
     {
         private readonly IOrderRepository repo;

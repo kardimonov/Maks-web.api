@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
 using GolovinskyAPI.Data.Interfaces;
-using GolovinskyAPI.Data.Models;
 using GolovinskyAPI.Logic.Interfaces;
+using GolovinskyAPI.Data.Models.Password;
 
 namespace GolovinskyAPI.Web.Controllers
 {
@@ -13,8 +12,7 @@ namespace GolovinskyAPI.Web.Controllers
     /// <returns></returns>
     [Produces("application/json")]
     [Route("api/password")]
-    [EnableCors]
-    //[ApiController]
+    [ApiController]
     public class PasswordController : ControllerBase
     {
         private readonly IRepository repo;

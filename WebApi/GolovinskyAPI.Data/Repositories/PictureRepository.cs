@@ -11,9 +11,6 @@ namespace GolovinskyAPI.Data.Repositories
 {
     public class PictureRepository : IPictureRepository
     {
-        //public float biggestside;
-        //public float prop;
-        //public int needside;
         private readonly IDbConnection dbConnection;
 
         public PictureRepository()
@@ -37,7 +34,7 @@ namespace GolovinskyAPI.Data.Repositories
 
         public SearchPictureInfoOutputModel SearchPictureInfo(SearchPictureInfoInputModel input)
         {
-            var res = new SearchPictureInfoOutputModel();
+            SearchPictureInfoOutputModel res = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 res = db.Query<SearchPictureInfoOutputModel>("sp_SearchPictureInfo",
@@ -54,7 +51,7 @@ namespace GolovinskyAPI.Data.Repositories
         // Показ дополнительных картинок
         public List<Picture> GetAllAdditionalPictures(SearchPictureInfoInputModel input)
         {
-            var list = new List<Picture>();
+            List<Picture> list = new();
             using (IDbConnection db = new SqlConnection(Global.Connection))
             {
                 //search additional images

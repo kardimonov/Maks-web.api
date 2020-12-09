@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using GolovinskyAPI.Data.Interfaces;
 
 namespace GolovinskyAPI.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/UserInfo")]
-    [EnableCors]
-    //[ApiController]
+    [ApiController]
     public class UserInfoController : ControllerBase
     {
         private readonly IRepository repo;
