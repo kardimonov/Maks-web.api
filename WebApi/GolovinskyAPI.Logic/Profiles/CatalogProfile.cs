@@ -8,9 +8,9 @@ namespace GolovinskyAPI.Logic.Profiles
     {
         public CatalogProfile()
         {
-            CreateMap<CreateCatalogViewModel, Catalog>();
-            CreateMap<EditCatalogViewModel, Catalog>();
-            CreateMap<DeleteCatalogViewModel, Catalog>();
+            CreateMap<CreateCatalog, Catalog>();
+            CreateMap<EditCatalog, Catalog>();
+            CreateMap<DeleteCatalog, Catalog>();
         }
     }
 }

@@ -68,7 +68,6 @@ namespace GolovinskyAPI.Logic.Services
             return response;
         }
 
-        // потм куда нибудь вынести
         private void Each<T>(IEnumerable<T> items, Action<T> action)
         {
             foreach (var item in items)

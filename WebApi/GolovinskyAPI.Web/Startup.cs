@@ -34,8 +34,10 @@ namespace GolovinskyAPI.Web
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
             {
                 builder.WithOrigins(Configuration.GetSection("CorsOrigins").Get<string[]>())
+                        .SetIsOriginAllowedToAllowWildcardSubdomains()
                         .AllowAnyMethod()
-                        .AllowAnyHeader();
+                        .AllowAnyHeader()
+                        .AllowCredentials();
                         //.AllowAnyOrigin();
             }));
 
@@ -59,7 +61,7 @@ namespace GolovinskyAPI.Web
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.RequireHttpsMetadata=false;
+                    options.RequireHttpsMetadata = false;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,

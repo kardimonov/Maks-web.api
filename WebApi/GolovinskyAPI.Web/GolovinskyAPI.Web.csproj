@@ -7,6 +7,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netcoreapp2.0\GolovinskyAPI.xml</DocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
     <Optimize>false</Optimize>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>

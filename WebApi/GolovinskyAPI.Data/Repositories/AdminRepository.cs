@@ -42,7 +42,7 @@ namespace GolovinskyAPI.Data.Repositories
                 var response = db.Query<LoginAdminOutputModel>("sp_CheckWebPasswordAdmin", new 
                 { 
                     UserName = input.UserName, 
-                    Password = input.Password 
+                    Password = input.Password
                 },
                     commandType: CommandType.StoredProcedure).First();
                 res = response;
