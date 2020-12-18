@@ -3,9 +3,6 @@ using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Data.Models.Catalog;
 using GolovinskyAPI.Logic.Models.Catalog;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 
 namespace GolovinskyAPI.Web.Controllers
 {
@@ -24,7 +21,7 @@ namespace GolovinskyAPI.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CreateCatalogViewModel model)
+        public IActionResult Post([FromBody] CreateCatalog model)
         {
             var newCatalog = mapper.Map<Catalog>(model);
             var res = repo.Create(newCatalog);
@@ -33,7 +30,7 @@ namespace GolovinskyAPI.Web.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] EditCatalogViewModel model)
+        public IActionResult Put([FromBody] EditCatalog model)
         {
             var newCatalog = mapper.Map<Catalog>(model);
             var res = repo.Update(newCatalog);
@@ -42,15 +39,8 @@ namespace GolovinskyAPI.Web.Controllers
         }
 
         [HttpDelete]
-        public IActionResult Delete([FromBody] DeleteCatalogViewModel model)
+        public IActionResult Delete([FromBody] DeleteCatalog model)
         {
-            var token = new JwtSecurityTokenHandler().ReadJwtToken(model.AccessToken);
-            var userId = Convert.ToInt32(token.Claims.ToList()[2].Value);
-
-            if (userId != model.CustIdMain)
-            {
-                return Forbid();
-            }
             var newCatalog = mapper.Map<Catalog>(model);
             var res = repo.Delete(newCatalog);
 

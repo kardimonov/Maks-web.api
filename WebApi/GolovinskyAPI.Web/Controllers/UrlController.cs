@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GolovinskyAPI.Data.Interfaces;
 using GolovinskyAPI.Logic.Interfaces;
+using GolovinskyAPI.Data.Models.ShopInfo;
+using System.Threading.Tasks;
 
 namespace GolovinskyAPI.Web.Controllers
 {
     [Produces("application/json")]
-    [Route("api/shopinfo")]
     [ApiController]
     public class UrlController : ControllerBase
     {
-        private readonly IRepository repo;
+        private readonly IShopRepository repo;
         private readonly ICustomizeService service;
 
-        public UrlController(IRepository repository, ICustomizeService serv)
+        public UrlController(IShopRepository repository, ICustomizeService serv)
         {
             repo = repository;
             service = serv;
@@ -23,7 +24,7 @@ namespace GolovinskyAPI.Web.Controllers
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        [HttpGet("{url}")]
+        [HttpGet("api/shopinfo/{url}")]
         public IActionResult Get(string url)
         {
             var mainImage = service.GetMainImage();
@@ -52,6 +53,41 @@ namespace GolovinskyAPI.Web.Controllers
                 welcome = res.Welcome,
                 manual = res.Manual
             });
+        }
+
+        /// <summary>
+        /// Отображение реквизитов магазина
+        /// </summary>
+        /// <param name="id"></param>
+        // GET: api/ShopDetails/19139
+        [HttpGet("/api/ShopDetails/{id}")]
+        public async Task<IActionResult> GetShopDetails(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest("Shop id is not defined");
+            }
+            var result = await repo.GetShopDetailsAsync((int)id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Редактирование реквизитов магазина
+        /// </summary>
+        /// <param name="model"></param>
+        // PUT: api/ShopDetails/
+        [HttpPut("/api/ShopDetails/")]
+        public async Task<IActionResult> UpdateShopDetails([FromBody] ShopDetailsPut model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            return Ok(await repo.UpdateShopDetailsAsync(model));
         }
     }
 }

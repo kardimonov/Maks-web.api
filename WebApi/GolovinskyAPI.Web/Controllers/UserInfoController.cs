@@ -23,7 +23,6 @@ namespace GolovinskyAPI.Web.Controllers
         /// <returns></returns>
         // GET: api/UserInfo/5
         [HttpGet("{id}", Name = "UserInfo")]
-        [Authorize]
         public IActionResult Get(int? id)
         {
             if (id == null)

@@ -2,8 +2,12 @@
 
 namespace GolovinskyAPI.Logic.Models.Background
 {
-    public class BackgroundPutFile : BackgroundBase
+    public class BackgroundPutFile
     {
+        public string AppCode { get; set; }
+
+        public string FileName { get; set; }
+
         public IFormFile Image { get; set; }
 
         public char Orientation { get; set; }
